@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raketové Weby | Rychle a Jednoduše</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS STYLY */
+        :root {
+            --primary: #007bff;
+            --primary-dark: #0056b3;
+            --dark: #1a1a1a;
+            --light: #f9f9f9;
+            --text: #333;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigace */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+            nav ul li {
+                margin-left: 25px;
+            }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+            nav a:hover {
+                color: var(--primary);
+            }
+
+        /* Hero sekce */
+        .hero {
+            padding: 120px 20px;
+            text-align: center;
+            background: radial-gradient(circle at top right, #eef6ff, transparent);
+        }
+
+            .hero h1 {
+                font-size: clamp(2.5rem, 5vw, 4rem);
+                line-height: 1.1;
+                margin-bottom: 20px;
+                color: var(--dark);
+                font-weight: 800;
+            }
+
+            .hero p {
+                font-size: 1.25rem;
+                margin-bottom: 40px;
+                color: #666;
+                max-width: 700px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        /* Tlačítka */
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            padding: 18px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+                background: var(--primary-dark);
+            }
+
+        /* Sekce Vlastnosti */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 80px 20px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            text-align: left;
+            transition: var(--transition);
+            border: 1px solid #eee;
+        }
+
+            .card:hover {
+                transform: translateY(-10px);
+                border-color: var(--primary);
+            }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .card p {
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            background: var(--dark);
+            color: rgba(255,255,255,0.7);
+            margin-top: 80px;
+        }
+
+        /* Responzivita pro mobilní telefony */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none; /* Pro jednoduchost skryto, v ostré verzi by tu bylo menu */
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">🚀 Raketové Weby</a>
+            <ul>
+                <li><a href="#vlastnosti">Vlastnosti</a></li>
+                <li><a href="#sluzby">Služby</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero container">
+            <h1>Weby, které startují váš business</h1>
+            <p>Neprodáváme jen kód. Stavíme digitální stroje na úspěch, které jsou rychlé, bezpečné a vypadají skvěle na každém zařízení.</p>
+            <a href="#kontakt" class="btn-primary">Chci raketový start</a>
+        </section>
+
+        <section id="vlastnosti" class="features container">
+            <div class="card">
+                <span class="card-icon">⚡</span>
+                <h3>Blesková rychlost</h3>
+                <p>Každá milisekunda rozhoduje o tom, jestli u vás zákazník nakoupí. Naše weby nečekají.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">📱</span>
+                <h3>Mobile First</h3>
+                <p>Většina lidí přijde z mobilu. Váš web na něm bude vypadat a fungovat naprosto perfektně.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">📈</span>
+                <h3>Výkonné SEO</h3>
+                <p>Stavíme na pevných základech, díky kterým vás vyhledávače najdou snadněji než konkurenci.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Raketové-Weby.cz | Vaše digitální mise začíná zde.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
