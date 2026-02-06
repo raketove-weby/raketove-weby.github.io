@@ -13,6 +13,7 @@
             --light: #f8fafc;
             --text: #334155;
             --white: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -40,29 +41,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
             width: 100%;
         }
 
-        /* LOGO - OPRAVENÝ HOVER */
         .logo { 
             font-size: 1.5rem; 
             font-weight: 800; 
             color: var(--dark); 
             text-decoration: none; 
             cursor: pointer;
-            z-index: 2100;
-            transition: 0.3s;
+            transition: var(--transition);
             display: flex;
             align-items: center;
         }
 
-        .logo:hover {
-            color: var(--primary);
-        }
-
+        .logo:hover { color: var(--primary); }
         .logo span { color: var(--primary); }
         
-        /* DESKTOP MENU */
         .nav-links { 
             display: flex; 
             list-style: none; 
@@ -74,7 +71,7 @@
             color: var(--text); 
             font-weight: 600; 
             cursor: pointer; 
-            transition: 0.3s; 
+            transition: var(--transition); 
             font-size: 1.05rem;
         }
 
@@ -87,7 +84,6 @@
             gap: 6px;
             cursor: pointer;
             z-index: 2100;
-            padding: 5px;
         }
 
         .burger span {
@@ -96,7 +92,7 @@
             height: 3px;
             background: var(--dark);
             border-radius: 3px;
-            transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+            transition: 0.4s;
         }
 
         /* OBSAH */
@@ -117,7 +113,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* HERO & SEKCE */
+        /* HERO */
         .hero { text-align: center; padding: 100px 20px; }
         .hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); color: var(--dark); margin-bottom: 20px; font-weight: 800; }
         .hero p { max-width: 600px; margin: 0 auto 30px; font-size: 1.15rem; color: #64748b; }
@@ -130,55 +126,77 @@
             text-decoration: none; 
             display: inline-block; 
             font-weight: bold; 
-            transition: 0.3s;
+            transition: var(--transition);
             border: none;
             cursor: pointer;
         }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,123,255,0.3); }
 
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .project-card { background: var(--white); border-radius: 18px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.04); text-decoration: none; color: inherit; transition: 0.3s; border: 1px solid #f1f5f9; }
+        /* MŘÍŽKY */
+        .portfolio-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+            margin-top: 40px; 
+        }
+
+        /* KARTY PROJEKTŮ */
+        .project-card { 
+            background: var(--white); 
+            border-radius: 18px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04); 
+            text-decoration: none; 
+            color: inherit; 
+            transition: var(--transition); 
+            border: 1px solid #f1f5f9; 
+        }
         .project-card:hover { transform: translateY(-8px); border-color: var(--primary); }
         .project-img { height: 200px; background: var(--dark); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .project-info { padding: 25px; }
+        
+        /* KARTY SLUŽEB - TVOJE NOVÁ ÚPRAVA */
+        .service-card {
+            background: var(--white);
+            border-radius: 18px;
+            padding: 30px;
+            border: 1px solid #f1f5f9;
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(0,123,255,0.1);
+        }
+
+        .service-card h3 { margin-bottom: 15px; color: var(--dark); }
 
         /* FOOTER */
         footer { background: var(--dark); color: white; width: 100%; margin-top: 80px; }
         .contact-bar { padding: 40px; display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
         .contact-items { display: flex; gap: 30px; font-size: 1rem; }
-        .msg-link { color: var(--primary); text-decoration: none; font-weight: 700; border: 2px solid var(--primary); padding: 8px 16px; border-radius: 8px; }
+        .msg-link { color: var(--primary); text-decoration: none; font-weight: 700; border: 2px solid var(--primary); padding: 8px 16px; border-radius: 8px; transition: var(--transition); }
+        .msg-link:hover { background: var(--primary); color: white; }
         .copyright { text-align: center; padding: 20px; font-size: 0.8rem; color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.05); }
 
-        /* MOBILNÍ FULLSCREEN MENU */
+        /* MOBILNÍ MENU */
         @media (max-width: 768px) {
             header { padding: 1rem 20px; }
             .burger { display: flex; }
-
             .nav-links {
-                position: fixed;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100vh;
-                background: var(--white);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 40px;
-                opacity: 0;
-                visibility: hidden;
-                transition: 0.4s ease;
-                z-index: 2050;
+                position: fixed; left: 0; top: 0; width: 100%; height: 100vh;
+                background: var(--white); flex-direction: column; align-items: center;
+                justify-content: center; gap: 40px; opacity: 0; visibility: hidden;
+                transition: 0.4s; z-index: 2050;
             }
-
             .nav-links.active { opacity: 1; visibility: visible; }
             .nav-links a { font-size: 2rem; font-weight: 800; }
             .contact-bar { flex-direction: column; text-align: center; gap: 20px; }
             .contact-items { flex-direction: column; gap: 10px; }
-
             .burger.open span:nth-child(1) { transform: rotate(45deg) translate(6px, 7px); }
-            .burger.open span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+            .burger.open span:nth-child(2) { opacity: 0; }
             .burger.open span:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
-            
             body.menu-open { overflow: hidden; }
         }
     </style>
@@ -235,23 +253,21 @@
         <div id="sluzby" class="page">
             <h2 style="margin-bottom: 30px;">Služby</h2>
             <div class="portfolio-grid">
-                <div class="project-info" style="background: white; border-radius: 18px; padding: 30px; border: 1px solid #f1f5f9;">
+                <div class="service-card">
                     <h3>🚀 Weby na míru</h3>
                     <p>Každý řádek kódu má svůj smysl. Výsledkem je extrémně rychlá stránka.</p>
                 </div>
-                <div class="project-info" style="background: white; border-radius: 18px; padding: 30px; border: 1px solid #f1f5f9;">
+                <div class="service-card">
                     <h3>📱 Responzivita</h3>
                     <p>Fungujeme skvěle na telefonech. Váš web bude vypadat dokonale kdekoli.</p>
                 </div>
-                <div class="project-info" style="background: white; border-radius: 18px; padding: 30px; border: 1px solid #f1f5f9;">
+                <div class="service-card">
                     <h3>⏳ Rychlost</h3>
                     <p>Web bude vytvořen a následně publikován raketovou rychlostí.</p>
                 </div>
-                <div class="project-info" style="background: white; border-radius: 18px; padding: 30px; border: 1px solid #f1f5f9;">
-                    <h3>📱 Zprostředkovatel</h3>
-                    <p>Váš web bude spolehlivý a zabezpečený přes <strong>HTTPS</strong>. 
-        Využíváme osvědčený <strong>Wedos.cz</strong>, 
-        ale po domluvě web nasadíme k <strong>jakémukoliv jinému</strong> poskytovateli.</p>
+                <div class="service-card">
+                    <h3>🔒 Zabezpečení</h3>
+                    <p>Váš web bude spolehlivý a zabezpečený přes HTTPS. Využíváme moderní technologie.</p>
                 </div>
             </div>
         </div>
@@ -287,7 +303,6 @@
             const activeLink = document.getElementById('link-' + pageId);
             if (activeLink) activeLink.classList.add('active');
 
-            // Pokud je mobilní menu otevřené, zavřeme ho při kliknutí na odkaz nebo logo
             if(nav.classList.contains('active')) {
                 toggleMenu();
             }
@@ -301,8 +316,5 @@
             body.classList.toggle('menu-open');
         }
     </script>
-
 </body>
 </html>
-
-
