@@ -1,36 +1,32 @@
 <!DOCTYPE html>
-<link rel="manifest" href="manifest.json" crossorigin="use-credentials">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
-    <title>MEGAFITKO</title>
+    <title>MEGAFITKO | Termínál</title>
     
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Inter:wght@400;700&display=swap');
         
-        :root {
-            /* Zamezení horizontálnímu skrolování na úrovni kořene */
-            overflow: hidden;
-        }
+        :root { overflow: hidden; }
 
         body { 
             background: #050505; 
             color: white; 
             font-family: 'Inter', sans-serif;
-            /* Uzamčení proti posunu a zoomu */
             position: fixed;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            touch-action: none; /* Úplně zakáže gesta zoomování prsty */
+            touch-action: none; 
             display: flex;
             flex-direction: column;
         }
@@ -43,15 +39,20 @@
             border: 1px solid rgba(255, 255, 255, 0.1); 
         }
 
-        /* Úprava velikosti pro "odzoomovaný" pocit - vše je kompaktnější */
-        .container-box {
-            transform: scale(0.9); /* Celou kartu mírně zmenšíme, aby vypadala elegantněji */
+        .container-box { transform: scale(0.9); }
+
+        /* Styl pro tlačítka nákupu */
+        .buy-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s;
+        }
+        .buy-option:active {
+            background: #ef4444;
+            transform: scale(0.95);
         }
 
-        input {
-            appearance: none;
-            font-size: 16px !important; /* Prevence auto-zoomu Safari */
-        }
+        input { appearance: none; font-size: 16px !important; }
     </style>
 </head>
 <body>
@@ -76,24 +77,47 @@
         </div>
 
         <div id="app-screen" class="glass p-6 rounded-2xl w-full max-w-[300px] text-center container-box hidden">
-            <h2 class="gym-font text-base font-black uppercase text-red-500 mb-4 italic">Vstup povolen</h2>
-            
-            <div id="qr-container" class="hidden mb-6">
-                <div class="p-3 bg-white rounded-xl inline-block">
-                    <div id="qrcode"></div>
+            <div id="selection-zone">
+                <h2 class="gym-font text-base font-black uppercase text-red-500 mb-4 italic">Zvolit tarif</h2>
+                
+                <div class="grid gap-2 mb-4">
+                    <button onclick="generateTicket('1 HODINA')" class="buy-option w-full p-3 rounded-xl text-left flex justify-between items-center group">
+                        <span class="text-xs font-bold uppercase">1 Hodina</span>
+                        <span class="text-[10px] text-red-500 font-black gym-font">VYBRAT</span>
+                    </button>
+                    
+                    <button onclick="generateTicket('1 DEN')" class="buy-option w-full p-3 rounded-xl text-left flex justify-between items-center">
+                        <span class="text-xs font-bold uppercase">Celý den</span>
+                        <span class="text-[10px] text-red-500 font-black gym-font">VYBRAT</span>
+                    </button>
+
+                    <button onclick="generateTicket('1 MĚSÍC')" class="buy-option w-full p-3 rounded-xl text-left flex justify-between items-center">
+                        <span class="text-xs font-bold uppercase">Měsíční Pass</span>
+                        <span class="text-[10px] text-red-500 font-black gym-font">VYBRAT</span>
+                    </button>
+
+                    <button onclick="generateTicket('1 ROK')" class="buy-option w-full p-3 rounded-xl text-left flex justify-between items-center border-red-500/50">
+                        <span class="text-xs font-bold uppercase">Roční VIP</span>
+                        <span class="text-[10px] text-red-500 font-black gym-font italic underline">BEST</span>
+                    </button>
                 </div>
             </div>
 
-            <button id="buy-btn" onclick="generateTicket()" class="w-full bg-white text-black py-3 rounded-xl font-black uppercase text-xs tracking-wider active:scale-95 transition-all">
-                Generovat QR
-            </button>
+            <div id="qr-container" class="hidden animate-in fade-in duration-300">
+                <h2 id="active-plan" class="text-red-500 font-black text-[10px] mb-4 uppercase tracking-[0.2em] gym-font"></h2>
+                <div class="p-3 bg-white rounded-xl inline-block mb-4">
+                    <div id="qrcode"></div>
+                </div>
+                <p class="text-white font-bold text-[9px] mb-6 uppercase opacity-50">Kód je platný pro vstup</p>
+                <button onclick="resetSelection()" class="w-full border border-white/10 py-2 rounded-lg text-[9px] font-bold uppercase text-slate-400">Zpět k tarifům</button>
+            </div>
             
-            <button onclick="logout()" class="mt-8 text-slate-600 text-[9px] font-bold uppercase tracking-widest">Odhlásit</button>
+            <button onclick="logout()" class="mt-6 text-slate-600 text-[9px] font-bold uppercase tracking-widest">Odhlásit</button>
         </div>
     </main>
 
     <footer class="p-4 text-center text-[8px] text-slate-700 font-bold uppercase tracking-[0.4em] gym-font">
-        Terminal Locked
+        Terminal Locked | Secure Layer
     </footer>
 
     <script>
@@ -109,19 +133,32 @@
 
         function logout() { location.reload(); }
 
-        function generateTicket() {
+        function resetSelection() {
+            document.getElementById('selection-zone').classList.remove('hidden');
+            document.getElementById('qr-container').classList.add('hidden');
+        }
+
+        function generateTicket(plan) {
+            // Skryje výběr a zobrazí QR
+            document.getElementById('selection-zone').classList.add('hidden');
+            const container = document.getElementById('qr-container');
             const qrDiv = document.getElementById('qrcode');
+            const planText = document.getElementById('active-plan');
+            
             qrDiv.innerHTML = "";
-            document.getElementById('qr-container').classList.remove('hidden');
+            planText.innerText = "AKTIVNÍ: " + plan;
+            container.classList.remove('hidden');
+            
             new QRCode(qrDiv, {
-                text: "MF-" + Date.now(),
+                text: "MF-" + plan.replace(" ", "-") + "-" + Date.now(),
                 width: 140,
-                height: 140
+                height: 140,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.M
             });
-            const btn = document.getElementById('buy-btn');
-            btn.innerText = "AKTIVNÍ";
-            btn.disabled = true;
-            btn.style.opacity = "0.5";
+
+            if (navigator.vibrate) navigator.vibrate(100);
         }
     </script>
 </body>
